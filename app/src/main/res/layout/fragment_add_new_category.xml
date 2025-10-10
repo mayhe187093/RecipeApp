@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:padding="15dp"
+    android:layout_marginTop="20dp"
+    tools:context=".View.AddNewCategoryFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm mới loại món ăn"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="#2196F3"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tên thể loại"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:inputType="textCapSentences"
+        />
+
+    <EditText
+        android:id="@+id/edtcattegory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:id="@+id/addnewcategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="thêm"
+        />
+
+</LinearLayout>

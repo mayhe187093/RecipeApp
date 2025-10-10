@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="0dp"
+    android:background="#FFC107"
+    android:orientation="vertical"
+    android:padding="25dp"
+    tools:context=".View.MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/recipelogo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#00BCD4"
+            android:padding="12dp"
+            android:layout_margin="5dp"
+            android:text="Sign in"
+            android:layout_weight="1"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/signup"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#00BCD4"
+            android:padding="12dp"
+            android:layout_margin="5dp"
+            android:text="Sign up"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loginform"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

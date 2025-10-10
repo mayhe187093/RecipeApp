@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_category_main"
+        android:title="Thể loại"
+        />
+    <item
+        android:id="@+id/nav_recipe_main"
+        android:title="Món ăn"
+        />
+    <item
+        android:id="@+id/nav_review_main"
+        android:title="Đánh giá"
+        />
+</menu>

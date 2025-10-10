@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:layout_marginTop="25dp"
+    tools:context=".View.DetailRecipeFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgDetailRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Image Recipe"
+            android:src="@drawable/recipelogo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/recpieName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tên Món Ăn"
+                android:textSize="18sp"
+                android:textColor="#D16D47"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/nameAuthorRecipe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Đầu Bếp"
+                android:textSize="15sp"
+                android:textColor="#D75931" />
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/teal_200"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nguyên Liệu"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/detailIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Content Nguyên Liệu"
+            android:textColor="@color/black"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:background="@color/teal_200"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hướng dẫn cách làm"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/detailDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Content Mô Tả"
+            android:textColor="@color/black"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:background="@color/teal_200"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Đánh Giá"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="4"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/writeReview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Viết Đánh Giá"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listReviewRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:dividerHeight="8dp"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
