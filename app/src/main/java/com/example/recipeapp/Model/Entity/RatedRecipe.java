@@ -6,7 +6,7 @@ import androidx.room.Relation;
 import java.io.Serializable;
 import java.util.List;
 
-public class TopRecipeDetail implements Serializable {
+public class RatedRecipe implements Serializable {
 
     @Embedded
     public Recipe recipe;

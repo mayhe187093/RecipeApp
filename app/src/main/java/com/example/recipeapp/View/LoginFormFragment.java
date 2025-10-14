@@ -45,7 +45,6 @@ public class LoginFormFragment extends Fragment {
                                 startActivity(intent);
                             }
                         });
-
                     }else{
                         userViewModel.getUserByAccountID(account.getAccountID()).observe(requireActivity(),user -> {
                             if(user!=null){
@@ -61,7 +60,6 @@ public class LoginFormFragment extends Fragment {
                 }
             });
         });
-
         return binding.getRoot();
     }
 }

@@ -5,10 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +15,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 
 import com.example.recipeapp.Model.Entity.Category;
+import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.TopRecipe;
-import com.example.recipeapp.Model.Entity.TopRecipeDetail;
 import com.example.recipeapp.R;
 import com.example.recipeapp.ViewModel.CategoryViewModel;
 import com.example.recipeapp.ViewModel.RecipeViewModel;
 import com.example.recipeapp.databinding.FragmentTopRecipeBinding;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class TopRecipeFragment extends Fragment {
@@ -44,7 +40,7 @@ public class TopRecipeFragment extends Fragment {
     private RecipeViewModel recipeViewModel;
     private ListView listView;
     private FragmentTopRecipeBinding binding;
-    private TopRecipeDetail recipe;
+    private RatedRecipe recipe;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -69,11 +65,13 @@ public class TopRecipeFragment extends Fragment {
         adapterTop3Recipe = new AdapterTop3Recipe(requireActivity(), listTop3);
         recyclerView.setAdapter(adapterTop3Recipe);
 
-        categoryViewModel.getAllCategory().observe(getViewLifecycleOwner(),list -> {
-            list.add(new Category());
-            list.get(list.size()-1).setCategoryID(0);
-            list.get(list.size()-1).setCategoryName("Tất cả loại");
-            Collections.reverse(list);
+        categoryViewModel.getAllCategory().observe(requireActivity(),list -> {
+            if(list.get(0).getCategoryID() != 0){
+                list.add(new Category());
+                list.get(list.size()-1).setCategoryID(0);
+                list.get(list.size()-1).setCategoryName("Tất cả loại");
+                Collections.reverse(list);
+            }
             if (list!=null){
                 adapterCategory = new ArrayAdapter<>(
                         requireContext(),
@@ -140,7 +138,6 @@ public class TopRecipeFragment extends Fragment {
         requireActivity().
                 getSupportFragmentManager().
                 beginTransaction().
-                addToBackStack(null).
                 replace(R.id.homecontent,fragment).
                 addToBackStack(null).
                 commit();

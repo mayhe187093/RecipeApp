@@ -17,7 +17,7 @@ import com.example.recipeapp.databinding.ActivityHomePageBinding;
 public class HomePage extends AppCompatActivity {
 
     private com.example.recipeapp.databinding.ActivityHomePageBinding binding;
-    UserViewModel userViewModel;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class HomePage extends AppCompatActivity {
 
         loadFragment(new SearchFragment());
         binding.navMenu.setOnItemSelectedListener(menuItem -> {
+            getSupportFragmentManager().popBackStack(null, getSupportFragmentManager().POP_BACK_STACK_INCLUSIVE);
             if(menuItem.getItemId() == R.id.nav_search_recipe){
                 loadFragment(new SearchFragment());
                 return true;

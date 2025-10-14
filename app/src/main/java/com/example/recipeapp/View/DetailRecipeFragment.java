@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,10 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.Recipe;
-import com.example.recipeapp.Model.Entity.RecipeWithUser;
 import com.example.recipeapp.Model.Entity.Review;
 import com.example.recipeapp.Model.Entity.ReviewWithRecipeWithUser;
-import com.example.recipeapp.Model.Entity.TopRecipeDetail;
 import com.example.recipeapp.Model.Entity.User;
 import com.example.recipeapp.R;
 import com.example.recipeapp.ViewModel.RecipeViewModel;
@@ -40,7 +38,7 @@ public class DetailRecipeFragment extends Fragment {
     private RecipeViewModel recipeViewModel;
     private User user;
     private UserViewModel userViewModel;
-    private TopRecipeDetail topRecipeDetail;
+    private RatedRecipe ratedRecipe;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,15 +49,22 @@ public class DetailRecipeFragment extends Fragment {
 
         userViewModel.getCurrentUser().observe(getViewLifecycleOwner(),u -> {
             user = u;
+            if(ratedRecipe!=null && user!=null){
+                if(ratedRecipe.user.getUserID() == user.getUserID()){
+                    binding.writeReview.setVisibility(View.GONE);
+                }else{
+                    binding.writeReview.setVisibility(View.VISIBLE);
+                }
+            }
         });
 
         if(getArguments() != null){
-            topRecipeDetail = (TopRecipeDetail) getArguments().get("recipeDetail");
+            ratedRecipe = (RatedRecipe) getArguments().get("recipeDetail");
         }
 
-        if(topRecipeDetail != null){
-            Recipe recipe = topRecipeDetail.recipe;
-            User authorRecipe = topRecipeDetail.user;
+        if(ratedRecipe != null){
+            Recipe recipe = ratedRecipe.recipe;
+            User authorRecipe = ratedRecipe.user;
 
             if (recipe.getImgPath() != null) {
                 File file = new File(recipe.getImgPath());

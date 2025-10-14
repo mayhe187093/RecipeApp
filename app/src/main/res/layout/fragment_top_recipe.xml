@@ -59,6 +59,7 @@
 
     <ListView
         android:id="@+id/listTopRecipe"
+        android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

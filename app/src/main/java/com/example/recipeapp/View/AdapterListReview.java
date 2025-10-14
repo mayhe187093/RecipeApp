@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.recipeapp.Model.Entity.ReviewWithRecipeWithUser;
 import com.example.recipeapp.R;
+import com.example.recipeapp.databinding.LayoutReviewRecipeBinding;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class AdapterListReview extends ArrayAdapter<ReviewWithRecipeWithUser> {
     private final Activity context;
     private final int IDLayout;
     private final ArrayList<ReviewWithRecipeWithUser> list;
+    private LayoutReviewRecipeBinding binding;
 
     public AdapterListReview(@NonNull Activity context, int IDLayout, @NonNull ArrayList<ReviewWithRecipeWithUser> list) {
         super(context, IDLayout, list);
@@ -30,19 +32,21 @@ public class AdapterListReview extends ArrayAdapter<ReviewWithRecipeWithUser> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(IDLayout, null);
+        if(convertView == null){
+            LayoutInflater inflater = context.getLayoutInflater();
+            binding = LayoutReviewRecipeBinding.inflate(inflater,parent,false);
+            convertView = binding.getRoot();
+            convertView.setTag(binding);
+        }else{
+            binding = (LayoutReviewRecipeBinding) convertView.getTag();
+        }
 
         ReviewWithRecipeWithUser review = list.get(position);
 
-        TextView nameReviewer = rowView.findViewById(R.id.nameReviewer);
-        TextView ratingRecipe = rowView.findViewById(R.id.ratingReview);
-        TextView commentReview = rowView.findViewById(R.id.commentReview);
+        binding.nameReviewer.setText(review.user.getFullName());
+        binding.ratingReview.setText(String.valueOf(review.review.getRating()) + "★");
+        binding.commentReview.setText(review.review.getComment());
 
-        nameReviewer.setText(review.user.getFullName());
-        ratingRecipe.setText(String.valueOf(review.review.getRating()) + "★");
-        commentReview.setText(review.review.getComment());
-
-        return rowView;
+        return convertView;
     }
 }

@@ -1,21 +1,17 @@
 package com.example.recipeapp.View;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.example.recipeapp.Model.Entity.Recipe;
-import com.example.recipeapp.Model.Entity.RecipeWithUser;
-import com.example.recipeapp.Model.Entity.TopRecipeDetail;
+import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.User;
 import com.example.recipeapp.R;
 import com.example.recipeapp.ViewModel.RecipeViewModel;
@@ -27,8 +23,8 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment {
     private AdapterListRecipe adapter;
     private ListView list;
-    private ArrayList<TopRecipeDetail> listTopRecipeDetail;
-    private ArrayList<TopRecipeDetail> listTopRecipeDetailAll;
+    private ArrayList<RatedRecipe> listRatedRecipe;
+    private ArrayList<RatedRecipe> listRatedRecipeAll;
     private RecipeViewModel recipeViewModel;
     private UserViewModel userViewModel;
     private User user;
@@ -40,24 +36,24 @@ public class SearchFragment extends Fragment {
         binding = FragmentSearchBinding.inflate(inflater,container,false);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         recipeViewModel = new ViewModelProvider(requireActivity()).get(RecipeViewModel.class);
-        listTopRecipeDetail = new ArrayList<>();
-        listTopRecipeDetailAll = new ArrayList<>();
+        listRatedRecipe = new ArrayList<>();
+        listRatedRecipeAll = new ArrayList<>();
         list = binding.listRecipe;
-        adapter = new AdapterListRecipe(requireActivity(),R.layout.layout_search,listTopRecipeDetail);
+        adapter = new AdapterListRecipe(requireActivity(),R.layout.layout_search, listRatedRecipe);
         list.setAdapter(adapter);
 
         recipeViewModel.getAllTopRecipeDetail().observe(getViewLifecycleOwner(),recipes -> {
-            listTopRecipeDetailAll.clear();
-            listTopRecipeDetailAll.addAll(recipes);
-            listTopRecipeDetail.clear();
-            listTopRecipeDetail.addAll(recipes);
+            listRatedRecipeAll.clear();
+            listRatedRecipeAll.addAll(recipes);
+            listRatedRecipe.clear();
+            listRatedRecipe.addAll(recipes);
             adapter.notifyDataSetChanged();
         });
 
         list.setOnItemClickListener((parent, view, position, id) -> {
-            TopRecipeDetail topRecipeDetail = listTopRecipeDetail.get(position);
+            RatedRecipe ratedRecipe = listRatedRecipe.get(position);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("recipeDetail",topRecipeDetail);
+            bundle.putSerializable("recipeDetail", ratedRecipe);
             DetailRecipeFragment detailRecipeFragment = new DetailRecipeFragment();
             detailRecipeFragment.setArguments(bundle);
             loadFragment(detailRecipeFragment);
@@ -67,12 +63,12 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty()){
-                    listTopRecipeDetail.clear();
-                    listTopRecipeDetail.addAll(listTopRecipeDetailAll);
+                    listRatedRecipe.clear();
+                    listRatedRecipe.addAll(listRatedRecipeAll);
                 }else{
-                    ArrayList<TopRecipeDetail> newListRecipe = filterListRecipe(newText);
-                    listTopRecipeDetail.clear();
-                    listTopRecipeDetail.addAll(newListRecipe);
+                    ArrayList<RatedRecipe> newListRecipe = filterListRecipe(newText);
+                    listRatedRecipe.clear();
+                    listRatedRecipe.addAll(newListRecipe);
                 }
                 adapter.notifyDataSetChanged();
                 return true;
@@ -81,12 +77,12 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if(query.isEmpty()){
-                    listTopRecipeDetail.clear();
-                    listTopRecipeDetail.addAll(listTopRecipeDetailAll);
+                    listRatedRecipe.clear();
+                    listRatedRecipe.addAll(listRatedRecipeAll);
                 }else{
-                    ArrayList<TopRecipeDetail> newListRecipe = filterListRecipe(query);
-                    listTopRecipeDetail.clear();
-                    listTopRecipeDetail.addAll(newListRecipe);
+                    ArrayList<RatedRecipe> newListRecipe = filterListRecipe(query);
+                    listRatedRecipe.clear();
+                    listRatedRecipe.addAll(newListRecipe);
                 }
                 adapter.notifyDataSetChanged();
                 return true;
@@ -96,9 +92,9 @@ public class SearchFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public ArrayList<TopRecipeDetail> filterListRecipe(String nameRecipe){
-        ArrayList<TopRecipeDetail> newListRecipe = new ArrayList<>();
-        for (TopRecipeDetail recipe: listTopRecipeDetailAll) {
+    public ArrayList<RatedRecipe> filterListRecipe(String nameRecipe){
+        ArrayList<RatedRecipe> newListRecipe = new ArrayList<>();
+        for (RatedRecipe recipe: listRatedRecipeAll) {
             if(recipe.recipe.getRecipeName().toLowerCase().contains(nameRecipe.toLowerCase())){
                 newListRecipe.add(recipe);
             }
@@ -110,7 +106,6 @@ public class SearchFragment extends Fragment {
         requireActivity().
                 getSupportFragmentManager().
                 beginTransaction().
-                addToBackStack(null).
                 replace(R.id.homecontent,fragment).
                 addToBackStack(null).
                 commit();

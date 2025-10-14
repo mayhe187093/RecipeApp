@@ -8,9 +8,9 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.Recipe;
 import com.example.recipeapp.Model.Entity.TopRecipe;
-import com.example.recipeapp.Model.Entity.TopRecipeDetail;
 import com.example.recipeapp.Model.Entity.RecipeWithUser;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public interface RecipeDAO {
     LiveData<List<RecipeWithUser>> getAllRecipeWithUser();
     @Transaction
     @Query("select * from Recipe")
-    LiveData<List<TopRecipeDetail>> getRecipeReviewStats();
+    LiveData<List<RatedRecipe>> getRecipeReviewStats();
 
     @Query( "select avg(r.rating) as avgRating,count(r.recipeID) as numberOfReviews,r.recipeID,re.recipeName,u.fullName,c.categoryName,re.ingredient,re.description,re.imgPath\n" +
             " from Review r inner join Recipe re on r.recipeID = re.recipeID inner join User u on u.userID = re.userID inner join Category c on c.categoryID = re.categoryID \n" +
@@ -40,8 +40,12 @@ public interface RecipeDAO {
 
     @Transaction
     @Query("select * from Recipe where recipeID = :recipeID")
-    LiveData<TopRecipeDetail> getTopRecipeDetailByID(int recipeID);
+    LiveData<RatedRecipe> getTopRecipeDetailByID(int recipeID);
     @Transaction
     @Query("select * from Recipe")
-    LiveData<List<TopRecipeDetail>> getAllTopRecipeDetail();
+    LiveData<List<RatedRecipe>> getAllTopRecipeDetail();
+
+    @Transaction
+    @Query("select * from Recipe where userID = :userID ")
+    LiveData<List<RatedRecipe>> getRatedRecipeByUserID(int userID);
 }

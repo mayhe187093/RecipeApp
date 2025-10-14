@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData;
 
 import com.example.recipeapp.Database.DBConnection;
 import com.example.recipeapp.Model.DAO.RecipeDAO;
+import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.Recipe;
 import com.example.recipeapp.Model.Entity.TopRecipe;
-import com.example.recipeapp.Model.Entity.TopRecipeDetail;
 import com.example.recipeapp.Model.Entity.RecipeWithUser;
 
 import java.util.List;
@@ -40,17 +40,19 @@ public class RecipeRepository {
         return allRecipeWithUser;
     }
 
-    public LiveData<List<TopRecipeDetail>> getRecipeReviewStats(){
+    public LiveData<List<RatedRecipe>> getRecipeReviewStats(){
         return recipeDAO.getRecipeReviewStats();
     }
     public LiveData<List<TopRecipe>> getTopRecipe(){
         return recipeDAO.getTopRecipe();
     }
-    public LiveData<TopRecipeDetail> getTopRecipeDetailByID(int recipeID){
+    public LiveData<RatedRecipe> getTopRecipeDetailByID(int recipeID){
         return recipeDAO.getTopRecipeDetailByID(recipeID);
     }
-
-    public LiveData<List<TopRecipeDetail>> getAllTopRecipeDetail(){
+    public LiveData<List<RatedRecipe>> getAllTopRecipeDetail(){
         return recipeDAO.getAllTopRecipeDetail();
+    }
+    public LiveData<List<RatedRecipe>> getRatedRecipeByUserID(int userID){
+        return recipeDAO.getRatedRecipeByUserID(userID);
     }
 }

@@ -3,70 +3,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="50dp"
     android:orientation="vertical"
+    android:paddingTop="50dp"
     tools:context=".View.PersonAccountFragment">
 
-   <LinearLayout
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_marginEnd="50dp"
-       android:layout_marginStart="50dp"
-       android:layout_height="wrap_content">
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Thông Tin Tài Khoản"
-           android:textStyle="bold"
-           android:textSize="20dp"
-           android:gravity="center"
-           android:textColor="#03A9F4"
-           />
-       <LinearLayout
-           android:orientation="horizontal"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text="Tên Người Dùng: "
-               android:layout_weight="1"
-               android:textSize="15dp"
-               android:textStyle="bold"
-               android:textColor="@color/black"
-               />
-           <TextView
-               android:id="@+id/userName"
-               android:gravity="center"
-               android:layout_weight="1"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text="ATPX48-69"
-               />
-       </LinearLayout>
-       <LinearLayout
-           android:orientation="horizontal"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text="Email: "
-               android:textSize="15dp"
-               android:layout_weight="1"
-               android:textStyle="bold"
-               android:textColor="@color/black"
-               />
-           <TextView
-               android:id="@+id/userEmail"
-               android:gravity="center"
-               android:layout_weight="1"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text="ATPX48-69"
-               />
-       </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="vertical">
 
-   </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Thông Tin Tài Khoản"
+            android:textColor="#03A9F4"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tên Người Dùng: "
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="ATPX48-69" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Email: "
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="ATPX48-69" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/cookByYou"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            android:text="đã nấu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/createRecipe"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            android:text="tạo món"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/dataPersonAccount"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="75dp"
+        />
 </LinearLayout>

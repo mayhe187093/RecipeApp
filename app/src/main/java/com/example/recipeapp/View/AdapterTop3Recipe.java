@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.recipeapp.Model.Entity.TopRecipe;
 import com.example.recipeapp.R;
+import com.example.recipeapp.databinding.LayoutTop3RecipeBinding;
 
 import java.util.ArrayList;
 
@@ -34,8 +35,9 @@ public class AdapterTop3Recipe extends RecyclerView.Adapter<AdapterTop3Recipe.To
     @NonNull
     @Override
     public Top3RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.layout_top_3_recipe, parent, false);
-        return new Top3RecipeViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(activity);
+        LayoutTop3RecipeBinding binding = LayoutTop3RecipeBinding.inflate(inflater,parent,false);
+        return new Top3RecipeViewHolder(binding);
     }
 
     @Override
@@ -44,8 +46,8 @@ public class AdapterTop3Recipe extends RecyclerView.Adapter<AdapterTop3Recipe.To
         if(topRecipe == null){
             return;
         }
-        Glide.with(activity).load(topRecipe.getImgPath()).into(holder.top3RecipeImg);
-        holder.itemView.setOnClickListener(v -> {
+        Glide.with(activity).load(topRecipe.getImgPath()).into(holder.binding.top3RecipeImage);
+        holder.binding.getRoot().setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(topRecipe);
             }
@@ -62,10 +64,11 @@ public class AdapterTop3Recipe extends RecyclerView.Adapter<AdapterTop3Recipe.To
 
     class Top3RecipeViewHolder extends RecyclerView.ViewHolder {
         private ImageView top3RecipeImg;
-
-        public Top3RecipeViewHolder(@NonNull View itemView) {
-            super(itemView);
-            top3RecipeImg = itemView.findViewById(R.id.top3RecipeImage);
+        LayoutTop3RecipeBinding binding;
+        public Top3RecipeViewHolder(@NonNull LayoutTop3RecipeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            top3RecipeImg = binding.top3RecipeImage;
         }
     }
 

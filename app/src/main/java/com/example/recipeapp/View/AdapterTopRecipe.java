@@ -10,17 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.example.recipeapp.Model.Entity.Category;
-import com.example.recipeapp.Model.Entity.Recipe;
 import com.example.recipeapp.Model.Entity.TopRecipe;
-import com.example.recipeapp.Model.Entity.TopRecipeDetail;
-import com.example.recipeapp.Model.Entity.Review;
-import com.example.recipeapp.Model.Entity.User;
 import com.example.recipeapp.databinding.LayoutTopRecipeBinding;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdapterTopRecipe extends ArrayAdapter<TopRecipe> {
     private Activity context;

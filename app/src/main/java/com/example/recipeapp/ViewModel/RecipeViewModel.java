@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.Recipe;
 import com.example.recipeapp.Model.Entity.TopRecipe;
-import com.example.recipeapp.Model.Entity.TopRecipeDetail;
 import com.example.recipeapp.Model.Entity.RecipeWithUser;
 import com.example.recipeapp.Model.Repository.RecipeRepository;
 
@@ -42,18 +42,19 @@ public class RecipeViewModel extends AndroidViewModel {
     public LiveData<List<RecipeWithUser>> getAllRecipeWithUser(){
         return allRecipeWithUser;
     }
-    public LiveData<List<TopRecipeDetail>> getRecipeReviewStats(){
+    public LiveData<List<RatedRecipe>> getRecipeReviewStats(){
         return recipeRepository.getRecipeReviewStats();
     }
     public LiveData<List<TopRecipe>> getTopRecipe(){
         return recipeRepository.getTopRecipe();
     }
-    public LiveData<TopRecipeDetail> getTopRecipeDetailByID(int recipeID){
+    public LiveData<RatedRecipe> getTopRecipeDetailByID(int recipeID){
         return recipeRepository.getTopRecipeDetailByID(recipeID);
     }
-
-    public LiveData<List<TopRecipeDetail>> getAllTopRecipeDetail(){
+    public LiveData<List<RatedRecipe>> getAllTopRecipeDetail(){
         return recipeRepository.getAllTopRecipeDetail();
     }
-
+    public LiveData<List<RatedRecipe>> getRatedRecipeByUserID(int userID){
+        return recipeRepository.getRatedRecipeByUserID(userID);
+    }
 }
