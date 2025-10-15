@@ -1,70 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/card_bg"
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:padding="12dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameTopItemRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cánh gà rang muối"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nameTopItemUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="UserName"
+            android:textColor="#B4A44A"
+            android:textSize="15dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/nameTopItemRecipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cánh gà rang muối"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/nameTopItemUser"
+                android:id="@+id/avgRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="UserName"
-                android:textColor="#B4A44A"
-                android:textSize="15dp" />
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/avgRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" 4★"
-                    android:layout_weight="5"
-                    android:textColor="#FFC107"
-                    />
-                <TextView
-                    android:id="@+id/numberComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5 người"
-                    android:layout_weight="5"
-                    android:textColor="@color/black"
-                    />
-            </LinearLayout>
+                android:layout_weight="5"
+                android:text=" 4★"
+                android:textColor="#FFC107" />
+
+            <TextView
+                android:id="@+id/numberComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="5 người"
+                android:textColor="@color/black" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imgTopItemRecipe"
-            android:layout_width="80dp"
-            android:layout_height="120dp"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/recipelogo" />
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgTopItemRecipe"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_gravity="end"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/recipelogo" />
 </LinearLayout>

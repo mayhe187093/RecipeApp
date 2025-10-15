@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -27,18 +28,17 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class TopRecipeFragment extends Fragment {
-    private AdapterTopRecipe adapter;
+    private AdapterTopRecipe adapterTopRecipe;
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<Category> adapterCategory;
     private CategoryViewModel categoryViewModel;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewTop3Recipe;
+    private RecyclerView recyclerViewTopRecipe;
     private AdapterTop3Recipe adapterTop3Recipe;
     private ArrayList<TopRecipe> listAll;
-    //private ArrayList<TopRecipe> listFilter;
     private ArrayList<TopRecipe> listOthers;
     private ArrayList<TopRecipe> listTop3;
     private RecipeViewModel recipeViewModel;
-    private ListView listView;
     private FragmentTopRecipeBinding binding;
     private RatedRecipe recipe;
 
@@ -46,24 +46,30 @@ public class TopRecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+
         binding = FragmentTopRecipeBinding.inflate(inflater, container, false);
         recipeViewModel = new ViewModelProvider(requireActivity()).get(RecipeViewModel.class);
         categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
+
         listAll = new ArrayList<>();
         listOthers = new ArrayList<>();
         listTop3 = new ArrayList<>();
-        listView = binding.listTopRecipe;
-        adapter = new AdapterTopRecipe(requireActivity(), listOthers);
-        binding.listTopRecipe.setAdapter(adapter);
 
         autoCompleteTextView = binding.dropdownCategory;
-
-        recyclerView = binding.top3RecipeReview;
-        recyclerView.setLayoutManager(
+        //
+        recyclerViewTopRecipe = binding.listTopRecipe;
+        recyclerViewTopRecipe.setLayoutManager(
+                new LinearLayoutManager(requireContext())
+        );
+        adapterTopRecipe = new AdapterTopRecipe(requireActivity(),listOthers);
+        recyclerViewTopRecipe.setAdapter(adapterTopRecipe);
+        //
+        recyclerViewTop3Recipe = binding.top3RecipeReview;
+        recyclerViewTop3Recipe.setLayoutManager(
                 new GridLayoutManager(requireActivity(), 3, GridLayoutManager.VERTICAL, false)
         );
         adapterTop3Recipe = new AdapterTop3Recipe(requireActivity(), listTop3);
-        recyclerView.setAdapter(adapterTop3Recipe);
+        recyclerViewTop3Recipe.setAdapter(adapterTop3Recipe);
 
         categoryViewModel.getAllCategory().observe(requireActivity(),list -> {
             if(list.get(0).getCategoryID() != 0){
@@ -87,12 +93,12 @@ public class TopRecipeFragment extends Fragment {
             listAll.addAll(topRecipes);
             filterListRecipe((ArrayList<TopRecipe>) topRecipes);
             adapterTop3Recipe.notifyDataSetChanged();
-            adapter.notifyDataSetChanged();
+            adapterTopRecipe.notifyDataSetChanged();
         });
 
         binding.filter.setOnClickListener(v -> {
             String categoryName = autoCompleteTextView.getText().toString();
-            ArrayList<TopRecipe> listFilter ;
+            ArrayList<TopRecipe> listFilter;
             if (categoryName.isEmpty() || categoryName.equals("Tất cả loại")) {
                 filterListRecipe(listAll);
             } else {
@@ -104,11 +110,11 @@ public class TopRecipeFragment extends Fragment {
                 filterListRecipe(listFilter);
             }
             adapterTop3Recipe.notifyDataSetChanged();
-            adapter.notifyDataSetChanged();
+            adapterTopRecipe.notifyDataSetChanged();
         });
 
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            int recipeID = listOthers.get(position).getRecipeID();
+        adapterTopRecipe.setOnItemListener(topRecipe -> {
+            int recipeID = topRecipe.getRecipeID();
             recipeViewModel.getTopRecipeDetailByID(recipeID).observe(getViewLifecycleOwner(),
                     topRecipeDetail -> {
                         Bundle bundle = new Bundle();
@@ -118,7 +124,6 @@ public class TopRecipeFragment extends Fragment {
                         loadFragment(detailRecipeFragment);
                     });
         });
-
         adapterTop3Recipe.setOnItemListener(topRecipe -> {
             int recipeID = topRecipe.getRecipeID();
             recipeViewModel.getTopRecipeDetailByID(recipeID).observe(getViewLifecycleOwner(),
@@ -134,24 +139,24 @@ public class TopRecipeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public void loadFragment(Fragment fragment){
+    public void loadFragment(Fragment fragment) {
         requireActivity().
                 getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.homecontent,fragment).
+                replace(R.id.homecontent, fragment).
                 addToBackStack(null).
                 commit();
     }
 
-    public void filterListRecipe(ArrayList<TopRecipe> list){
-        if(list.size()>3){
+    public void filterListRecipe(ArrayList<TopRecipe> list) {
+        if (list.size() > 3) {
             listTop3.clear();
-            listTop3.addAll(list.subList(0,3));
+            listTop3.addAll(list.subList(0, 3));
             listOthers.clear();
-            listOthers.addAll(list.subList(3,list.size()));
-        }else{
+            listOthers.addAll(list.subList(3, list.size()));
+        } else {
             listTop3.clear();
-            listTop3.addAll(list.subList(0,list.size()));
+            listTop3.addAll(list.subList(0, list.size()));
             listOthers.clear();
         }
     }

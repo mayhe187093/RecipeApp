@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="25dp"
+    android:background="#FAFAFA"
+    android:padding="10dp"
+    android:layout_marginTop="30dp"
     android:orientation="vertical"
     tools:context=".View.SearchFragment">
 
@@ -11,28 +13,32 @@
         android:id="@+id/searchrecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/searchview_bg"
         android:iconifiedByDefault="false"
-        android:queryHint="Tìm món ăn" />
+        android:queryHint="Tìm món ăn ngon..."
+        android:elevation="4dp" />
 
     <TextView
-        android:background="#FFEB3B"
+        android:layout_marginTop="16dp"
+        android:background="#FFF9C4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Danh Sách Món Ăn"
+        android:text="Danh sách món ăn"
         android:gravity="center"
-        android:textSize="25dp"
+        android:textSize="22sp"
         android:textStyle="italic"
         android:textColor="#03A9F4"
-        />
+        android:padding="8dp"
+        android:elevation="3dp" />
 
     <ListView
         android:id="@+id/listRecipe"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
         android:clipToPadding="false"
-        android:layout_marginBottom="50dp"
         android:fitsSystemWindows="true" />
-
 
 </LinearLayout>

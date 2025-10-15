@@ -64,7 +64,7 @@ public class AdapterTop3Recipe extends RecyclerView.Adapter<AdapterTop3Recipe.To
 
     class Top3RecipeViewHolder extends RecyclerView.ViewHolder {
         private ImageView top3RecipeImg;
-        LayoutTop3RecipeBinding binding;
+        private LayoutTop3RecipeBinding binding;
         public Top3RecipeViewHolder(@NonNull LayoutTop3RecipeBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
