@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="50dp"
     android:orientation="vertical"
     tools:context=".View.TopRecipeFragment">
@@ -52,7 +53,9 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:text="Lọc"
+            app:icon="@drawable/filter"
             android:layout_gravity="center"
+            android:backgroundTint="#8BC34A"
             />
 
     </LinearLayout>

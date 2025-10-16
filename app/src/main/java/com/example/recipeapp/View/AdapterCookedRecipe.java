@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.Review;
+import com.example.recipeapp.Model.Entity.User;
 import com.example.recipeapp.ViewModel.RecipeViewModel;
 import com.example.recipeapp.databinding.LayoutCookedRecipesBinding;
 
@@ -26,19 +27,28 @@ public class AdapterCookedRecipe extends RecyclerView.Adapter<AdapterCookedRecip
     private ArrayList<RatedRecipe> list;
     private Fragment fragment;
     private RecipeViewModel recipeViewModel;
-    public AdapterCookedRecipe(ArrayList<RatedRecipe> list, Fragment fragment,RecipeViewModel recipeViewModel) {
+    private User user;
+
+    public AdapterCookedRecipe(ArrayList<RatedRecipe> list, Fragment fragment, RecipeViewModel recipeViewModel) {
         this.list = list;
         this.fragment = fragment;
         this.recipeViewModel = recipeViewModel;
     }
 
-    public interface setOnItemClickListenerAdapter{
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public interface setOnItemClickListenerAdapter {
         void onItemClick(RatedRecipe ratedRecipe);
     }
+
     private setOnItemClickListenerAdapter listener;
-    public void setOnItemClickListenerAdapter(setOnItemClickListenerAdapter listener){
+
+    public void setOnItemClickListenerAdapter(setOnItemClickListenerAdapter listener) {
         this.listener = listener;
     }
+
     @NonNull
     @Override
     public CookedRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,32 +60,36 @@ public class AdapterCookedRecipe extends RecyclerView.Adapter<AdapterCookedRecip
     @Override
     public void onBindViewHolder(@NonNull CookedRecipeViewHolder holder, int position) {
         RatedRecipe recipe = list.get(position);
-        if(recipe == null){
+        if (recipe == null) {
             return;
         }
         int totalAvg = 0;
         int totalComment = recipe.listReview.size();
-        for (Review review : recipe.listReview  ) {
-            totalAvg+=review.getRating();
+        for (Review review : recipe.listReview) {
+            totalAvg += review.getRating();
         }
-        double avg = (double) totalAvg/totalComment>0?totalAvg/totalComment:0;
+        double avg = (double) totalAvg / totalComment > 0 ? totalAvg / totalComment : 0;
         holder.binding.nameCookedRecipes.setText(recipe.recipe.getRecipeName());
-        holder.binding.avgRatingCookedRecipe.setText(avg!=0?String.format("%.1f ★",avg):"Chưa có đánh giá");
-        holder.binding.numberCommentCookedRecipe.setText(totalComment!=0?String.valueOf(totalComment)+" Review":"");
+        holder.binding.avgRatingCookedRecipe.setText(avg != 0 ? String.format("%.1f ★", avg) : "Chưa có đánh giá");
+        holder.binding.numberCommentCookedRecipe.setText(totalComment != 0 ? String.valueOf(totalComment) + " Review" : "");
         Glide.with(fragment).load(recipe.recipe.getImgPath()).into(holder.binding.imgCookedRecipe);
         holder.binding.deleteCookedRecipe.setOnClickListener(v -> {
-
             AlertDialog.Builder confirm = new AlertDialog.Builder(fragment.getContext());
             confirm.setTitle("Bạn có chắc chắn xóa món ăn này");
-            confirm.setPositiveButton("Xóa",(dialog, which) -> {
+            confirm.setPositiveButton("Xóa", (dialog, which) -> {
                 recipeViewModel.deleteRecipe(recipe.recipe);
                 dialog.dismiss();
             });
-            confirm.setNegativeButton("Hủy",(dialog, which) -> dialog.dismiss());
+            confirm.setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
             confirm.show();
         });
+        if (user!=null) {
+            if (user.getUserID() != recipe.user.getUserID()) {
+                holder.binding.deleteCookedRecipe.setVisibility(View.GONE);
+            }
+        }
         holder.binding.getRoot().setOnClickListener(v -> {
-            if(listener!=null){
+            if (listener != null) {
                 listener.onItemClick(recipe);
             }
         });

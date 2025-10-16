@@ -28,6 +28,7 @@ import com.example.recipeapp.databinding.FragmentDetailRecipeBinding;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DetailRecipeFragment extends Fragment {
     private AdapterListReview adapter;
@@ -39,6 +40,10 @@ public class DetailRecipeFragment extends Fragment {
     private User user;
     private UserViewModel userViewModel;
     private RatedRecipe ratedRecipe;
+
+    private static void onChanged(List<RatedRecipe> ratedRecipes) {
+
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,11 +77,22 @@ public class DetailRecipeFragment extends Fragment {
                         .load(file)
                         .into(binding.imgDetailRecipe);
             }
-
-            binding.nameAuthorRecipe.setText("Đầu Bếp: " + authorRecipe.getFullName());
+            binding.nameAuthorRecipe.setText(authorRecipe.getFullName());
             binding.recpieName.setText(recipe.getRecipeName());
             binding.detailIngredient.setText(recipe.getIngredient());
             binding.detailDescription.setText(recipe.getDescription());
+
+            binding.nameAuthorRecipe.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("authorRecipe",authorRecipe);
+                PersonAccountFragment fragment = new PersonAccountFragment();
+                fragment.setArguments(bundle);
+                requireActivity().getSupportFragmentManager().
+                                  beginTransaction().
+                                  replace(R.id.homecontent,fragment).
+                                  addToBackStack(null).
+                                  commit();
+            });
 
             binding.writeReview.setOnClickListener(v -> {
                 if (user == null) {

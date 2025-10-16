@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:layout_marginTop="25dp"
     tools:context=".View.DetailRecipeFragment">
@@ -37,13 +38,16 @@
                 android:textColor="#D16D47"
                 android:textStyle="bold"/>
 
-            <TextView
+            <Button
                 android:id="@+id/nameAuthorRecipe"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="end"
+                android:gravity="start"
+                android:backgroundTint="@color/white"
                 android:text="Đầu Bếp"
+                app:icon="@drawable/chef"
+                app:iconTint="@color/black"
                 android:textSize="15sp"
                 android:textColor="#D75931" />
         </LinearLayout>
