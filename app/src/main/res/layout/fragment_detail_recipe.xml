@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF8F3"
     android:fillViewport="true"
-    android:layout_marginTop="25dp"
     tools:context=".View.DetailRecipeFragment">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/imgDetailRecipe"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="Image Recipe"
-            android:src="@drawable/recipelogo" />
+            android:layout_height="220dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/imgDetailRecipe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Image Recipe"
+                android:src="@drawable/recipelogo" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/recpieName"
@@ -34,91 +43,143 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Tên Món Ăn"
-                android:textSize="18sp"
-                android:textColor="#D16D47"
-                android:textStyle="bold"/>
-
-            <Button
-                android:id="@+id/nameAuthorRecipe"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:backgroundTint="@color/white"
-                android:text="Đầu Bếp"
-                app:icon="@drawable/chef"
-                app:iconTint="@color/black"
-                android:textSize="15sp"
-                android:textColor="#D75931" />
-        </LinearLayout>
-
-        <TextView
-            android:background="@color/teal_200"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nguyên Liệu"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:id="@+id/detailIngredient"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Content Nguyên Liệu"
-            android:textColor="@color/black"
-            android:layout_marginTop="4dp"/>
-
-        <TextView
-            android:background="@color/teal_200"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hướng dẫn cách làm"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/detailDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Content Mô Tả"
-            android:textColor="@color/black"
-            android:layout_marginTop="4dp"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:background="@color/teal_200"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Đánh Giá"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_weight="4"
-                android:textColor="@color/black" />
+                android:textColor="#FF7043"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/writeReview"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nameAuthorRecipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Viết Đánh Giá"
-                android:visibility="visible"
-                android:layout_weight="1" />
+                android:text="👨‍🍳 Đầu bếp"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:backgroundTint="#D16D47"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/chef"
+                app:iconTint="#FFFFFF"
+                app:iconGravity="textStart"
+                android:paddingHorizontal="10dp" />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listReviewRecipe"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:dividerHeight="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🥦 Nguyên liệu"
+                    android:textColor="#555"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailIngredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Gạo 200g\n• Trứng 2 quả\n• Thịt gà 100g"
+                    android:textColor="#333"
+                    android:textSize="15sp"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🍳 Cách nấu"
+                    android:textColor="#555"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. Rửa sạch nguyên liệu\n2. Ướp thịt gà\n3. Chiên trứng và xào cùng cơm"
+                    android:textColor="#333"
+                    android:textSize="15sp"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="⭐ Đánh giá"
+                        android:textColor="#555"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/writeReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Viết đánh giá"
+                        android:textColor="#FFFFFF"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:backgroundTint="#8BC34A"
+                        app:cornerRadius="12dp"
+                        app:iconTint="#FFFFFF"
+                        app:iconGravity="textStart"
+                        android:paddingHorizontal="10dp" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listReviewRecipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:dividerHeight="10dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

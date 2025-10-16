@@ -5,54 +5,82 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="0dp"
-    android:background="#FFC107"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#FFD54F"
     android:padding="25dp"
     tools:context=".View.MainActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:id="@+id/imgLogo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/recipelogo" />
+        android:src="@drawable/recipelogo"
+        android:contentDescription="App Logo"
+        android:scaleType="fitCenter" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipe App"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:shadowColor="#80000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:weightSum="2"
-        android:orientation="horizontal">
+        android:gravity="center">
 
         <Button
             android:id="@+id/signin"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="#00BCD4"
-            android:padding="12dp"
-            android:layout_margin="5dp"
-            android:text="Sign in"
             android:layout_weight="1"
-            android:textColor="@android:color/white" />
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/teal_700"
+            android:text="Đăng nhập"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:paddingVertical="12dp"
+            android:fontFamily="sans-serif-medium" />
 
         <Button
             android:id="@+id/signup"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="#00BCD4"
-            android:padding="12dp"
-            android:layout_margin="5dp"
-            android:text="Sign up"
-            android:textColor="@android:color/white" />
-
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/teal_700"
+            android:text="Đăng ký"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:paddingVertical="12dp"
+            android:fontFamily="sans-serif-medium" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/loginform"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/white"
+        android:elevation="6dp"
+        android:padding="20dp"
+        android:layout_marginBottom="20dp"
+        android:clipToOutline="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:backgroundTintMode="src_atop"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_card_rounded" />
 </LinearLayout>

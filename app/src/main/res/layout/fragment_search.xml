@@ -3,32 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
-    android:padding="10dp"
-    android:layout_marginTop="30dp"
     android:orientation="vertical"
+    android:background="#FFF8E1"
+    android:layout_marginTop="30dp"
+    android:padding="16dp"
     tools:context=".View.SearchFragment">
 
     <SearchView
         android:id="@+id/searchrecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/searchview_bg"
+        android:background="@drawable/bg_search_rounded"
         android:iconifiedByDefault="false"
         android:queryHint="Tìm món ăn ngon..."
+        android:layout_marginBottom="14dp"
         android:elevation="4dp" />
 
     <TextView
-        android:layout_marginTop="16dp"
-        android:background="#FFF9C4"
+        android:id="@+id/txtTitleList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Danh sách món ăn"
         android:gravity="center"
         android:textSize="22sp"
-        android:textStyle="italic"
-        android:textColor="#03A9F4"
-        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="#D84315"
+        android:background="@drawable/bg_title_rounded"
+        android:paddingVertical="10dp"
+        android:layout_marginBottom="12dp"
         android:elevation="3dp" />
 
     <ListView
@@ -39,6 +41,8 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
         android:clipToPadding="false"
-        android:fitsSystemWindows="true" />
+        android:paddingBottom="10dp"
+        android:scrollbars="vertical"
+        android:overScrollMode="ifContentScrolls" />
 
 </LinearLayout>
