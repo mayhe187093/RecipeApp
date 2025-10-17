@@ -19,11 +19,11 @@ import java.io.File;
 import java.util.ArrayList;
 public class AdapterListRecipe extends ArrayAdapter<RatedRecipe> {
     private Activity context;
-    private ArrayList<RatedRecipe> listRecipeWithUser;
-    public AdapterListRecipe(@NonNull Activity context, int IDLayout, ArrayList<RatedRecipe> listRecipeWithUser) {
-        super(context, 0, listRecipeWithUser);
+    private ArrayList<RatedRecipe> list;
+    public AdapterListRecipe(@NonNull Activity context, int IDLayout, ArrayList<RatedRecipe> list) {
+        super(context, 0, list);
         this.context = context;
-        this.listRecipeWithUser = listRecipeWithUser;
+        this.list = list;
     }
 
     @NonNull
@@ -38,14 +38,14 @@ public class AdapterListRecipe extends ArrayAdapter<RatedRecipe> {
         }else{
             binding = (LayoutSearchBinding) convertView.getTag();
         }
-        RatedRecipe ratedRecipe = listRecipeWithUser.get(position);
+        RatedRecipe ratedRecipe = list.get(position);
         Recipe recipe = ratedRecipe.recipe;
         User user = ratedRecipe.user;
         binding.nameItemRecipe.setText(recipe.getRecipeName());
         binding.nameItemUser.setText(user != null ?user.getFullName():"Guest");
 
         File imgFile = new File(recipe.getImgPath());
-        Glide.with(context)
+        Glide.with(binding.imgItemRecipe.getContext())
                 .load(imgFile)
                 .into(binding.imgItemRecipe);
         return convertView;

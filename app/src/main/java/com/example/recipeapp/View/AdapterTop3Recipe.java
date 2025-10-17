@@ -46,7 +46,7 @@ public class AdapterTop3Recipe extends RecyclerView.Adapter<AdapterTop3Recipe.To
         if(topRecipe == null){
             return;
         }
-        Glide.with(activity).load(topRecipe.getImgPath()).into(holder.binding.top3RecipeImage);
+        Glide.with(holder.binding.top3RecipeImage.getContext()).load(topRecipe.getImgPath()).into(holder.binding.top3RecipeImage);
         holder.binding.getRoot().setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(topRecipe);

@@ -19,12 +19,13 @@ import com.example.recipeapp.ViewModel.UserViewModel;
 import com.example.recipeapp.databinding.FragmentSearchBinding;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class SearchFragment extends Fragment {
     private AdapterListRecipe adapter;
     private ListView list;
-    private ArrayList<RatedRecipe> listRatedRecipe;
-    private ArrayList<RatedRecipe> listRatedRecipeAll;
+    private ArrayList<RatedRecipe> listSearchRecipe;
+    private ArrayList<RatedRecipe> listRecipeAll;
     private RecipeViewModel recipeViewModel;
     private UserViewModel userViewModel;
     private User user;
@@ -36,22 +37,22 @@ public class SearchFragment extends Fragment {
         binding = FragmentSearchBinding.inflate(inflater,container,false);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         recipeViewModel = new ViewModelProvider(requireActivity()).get(RecipeViewModel.class);
-        listRatedRecipe = new ArrayList<>();
-        listRatedRecipeAll = new ArrayList<>();
+        listSearchRecipe = new ArrayList<>();
+        listRecipeAll = new ArrayList<>();
         list = binding.listRecipe;
-        adapter = new AdapterListRecipe(requireActivity(),R.layout.layout_search, listRatedRecipe);
+        adapter = new AdapterListRecipe(requireActivity(),R.layout.layout_search, listSearchRecipe);
         list.setAdapter(adapter);
 
         recipeViewModel.getAllTopRecipeDetail().observe(getViewLifecycleOwner(),recipes -> {
-            listRatedRecipeAll.clear();
-            listRatedRecipeAll.addAll(recipes);
-            listRatedRecipe.clear();
-            listRatedRecipe.addAll(recipes);
+            listRecipeAll.clear();
+            listRecipeAll.addAll(recipes);
+            listSearchRecipe.clear();
+            listSearchRecipe.addAll(recipes);
             adapter.notifyDataSetChanged();
         });
 
         list.setOnItemClickListener((parent, view, position, id) -> {
-            RatedRecipe ratedRecipe = listRatedRecipe.get(position);
+            RatedRecipe ratedRecipe = listSearchRecipe.get(position);
             Bundle bundle = new Bundle();
             bundle.putSerializable("recipeDetail", ratedRecipe);
             DetailRecipeFragment detailRecipeFragment = new DetailRecipeFragment();
@@ -63,12 +64,12 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty()){
-                    listRatedRecipe.clear();
-                    listRatedRecipe.addAll(listRatedRecipeAll);
+                    listSearchRecipe.clear();
+                    listSearchRecipe.addAll(listRecipeAll);
                 }else{
                     ArrayList<RatedRecipe> newListRecipe = filterListRecipe(newText);
-                    listRatedRecipe.clear();
-                    listRatedRecipe.addAll(newListRecipe);
+                    listSearchRecipe.clear();
+                    listSearchRecipe.addAll(newListRecipe);
                 }
                 adapter.notifyDataSetChanged();
                 return true;
@@ -77,12 +78,12 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if(query.isEmpty()){
-                    listRatedRecipe.clear();
-                    listRatedRecipe.addAll(listRatedRecipeAll);
+                    listSearchRecipe.clear();
+                    listSearchRecipe.addAll(listRecipeAll);
                 }else{
                     ArrayList<RatedRecipe> newListRecipe = filterListRecipe(query);
-                    listRatedRecipe.clear();
-                    listRatedRecipe.addAll(newListRecipe);
+                    listSearchRecipe.clear();
+                    listSearchRecipe.addAll(newListRecipe);
                 }
                 adapter.notifyDataSetChanged();
                 return true;
@@ -93,12 +94,9 @@ public class SearchFragment extends Fragment {
     }
 
     public ArrayList<RatedRecipe> filterListRecipe(String nameRecipe){
-        ArrayList<RatedRecipe> newListRecipe = new ArrayList<>();
-        for (RatedRecipe recipe: listRatedRecipeAll) {
-            if(recipe.recipe.getRecipeName().toLowerCase().contains(nameRecipe.toLowerCase())){
-                newListRecipe.add(recipe);
-            }
-        }
+        ArrayList<RatedRecipe> newListRecipe = listRecipeAll.stream().
+                filter(item -> item.recipe.getRecipeName().toLowerCase().contains(nameRecipe.toLowerCase())).
+                collect(Collectors.toCollection(ArrayList::new));
         return newListRecipe;
     }
 

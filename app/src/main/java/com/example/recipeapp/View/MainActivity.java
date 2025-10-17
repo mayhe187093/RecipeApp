@@ -11,32 +11,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.recipeapp.R;
+import com.example.recipeapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnSignin,btnSignup;
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-
-        btnSignin = findViewById(R.id.signin);
-        btnSignup = findViewById(R.id.signup);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         loadFragment(new LoginFormFragment());
 
-        btnSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new LoginFormFragment());
-            }
+        binding.signin.setOnClickListener(v -> {
+            loadFragment(new LoginFormFragment());
         });
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new RegisterFormFragment());
-            }
+        binding.signup.setOnClickListener(v -> {
+            loadFragment(new RegisterFormFragment());
         });
     }
 

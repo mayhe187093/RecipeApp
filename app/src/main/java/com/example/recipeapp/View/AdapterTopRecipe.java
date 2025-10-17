@@ -50,7 +50,8 @@ public class AdapterTopRecipe extends RecyclerView.Adapter<AdapterTopRecipe.TopR
         holder.layoutTopRecipeBinding.nameTopItemUser.setText(topRecipe.getFullName());
         holder.layoutTopRecipeBinding.avgRating.setText("Rating: "+topRecipe.getAvgRating()+"★");
         holder.layoutTopRecipeBinding.numberComment.setText("Comments: "+topRecipe.getNumberOfReviews());
-        Glide.with(activity).load(topRecipe.getImgPath()).into(holder.layoutTopRecipeBinding.imgTopItemRecipe);
+        Glide.with(holder.layoutTopRecipeBinding.imgTopItemRecipe.getContext()).
+                load(topRecipe.getImgPath()).into(holder.layoutTopRecipeBinding.imgTopItemRecipe);
         holder.layoutTopRecipeBinding.getRoot().setOnClickListener(v -> {
             if(listener!=null){
                 listener.onClickItem(topRecipe);

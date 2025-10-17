@@ -25,6 +25,7 @@ import com.example.recipeapp.ViewModel.RecipeViewModel;
 import com.example.recipeapp.ViewModel.ReviewViewModel;
 import com.example.recipeapp.ViewModel.UserViewModel;
 import com.example.recipeapp.databinding.FragmentDetailRecipeBinding;
+import com.example.recipeapp.databinding.LayoutDialogWriteReviewBinding;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class DetailRecipeFragment extends Fragment {
     private User user;
     private UserViewModel userViewModel;
     private RatedRecipe ratedRecipe;
-
+    private LayoutDialogWriteReviewBinding layoutDialogWriteReviewBinding;
     private static void onChanged(List<RatedRecipe> ratedRecipes) {
 
     }
@@ -100,16 +101,13 @@ public class DetailRecipeFragment extends Fragment {
                     return;
                 }
                 AlertDialog.Builder writeReview = new AlertDialog.Builder(requireActivity());
-                View viewDialog = getLayoutInflater().inflate(R.layout.layout_dialog_write_review,null);
-                writeReview.setView(viewDialog);
+                layoutDialogWriteReviewBinding = LayoutDialogWriteReviewBinding.inflate(getLayoutInflater());
+                writeReview.setView(layoutDialogWriteReviewBinding.getRoot());
                 writeReview.setTitle("Viết Đánh Giá");
 
-                RatingBar ratingBar = viewDialog.findViewById(R.id.ratingBar);
-                EditText edtComment = viewDialog.findViewById(R.id.edtComment);
-
                 writeReview.setPositiveButton("Gửi",(dialog, which) -> {
-                    int rating = (int) ratingBar.getRating();
-                    String comment = edtComment.getText().toString().trim();
+                    int rating = (int) layoutDialogWriteReviewBinding.ratingBar.getRating();
+                    String comment = layoutDialogWriteReviewBinding.edtComment.getText().toString().trim();
                     if(rating == 0 || comment.isEmpty()){
                         Toast.makeText(requireContext(),"Vui Lòng Nhập Đầy Đủ Thông Tin",Toast.LENGTH_SHORT).show();
                         return;
