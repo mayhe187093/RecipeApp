@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Recipe App</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <item name="icon_search" type="drawable">@drawable/search</item>
-    <item name="icon_person_account" type="drawable">@drawable/person_account</item>
-    <item name="icon_top_recipe" type="drawable">@drawable/top_recipe</item>
+    <string name="nav_profile">Trang cá nhân</string>
+    <string name="nav_favorite">Món đã thích</string>
+    <string name="nav_my_kitchen">Bếp của tôi</string>
+    <string name="nav_language">Ngôn ngữ</string>
+    <string name="nav_logout">Đăng xuất</string>
+    <string name="title_home">Trang chủ</string>
 </resources>

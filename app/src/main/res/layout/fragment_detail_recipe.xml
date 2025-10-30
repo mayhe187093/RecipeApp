@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="30dp"
     android:background="#FFF8F3"
     android:fillViewport="true"
     tools:context=".View.DetailRecipeFragment">
@@ -22,14 +21,31 @@
             app:cardElevation="6dp"
             android:layout_marginBottom="16dp">
 
-            <ImageView
-                android:id="@+id/imgDetailRecipe"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="Image Recipe"
-                android:src="@drawable/recipelogo" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgDetailRecipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Image Recipe"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/recipelogo" />
+
+                <ImageButton
+                    android:id="@+id/btnFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/before_favourite"
+                    android:visibility="visible" />
+            </FrameLayout>
+
         </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
             android:layout_width="match_parent"

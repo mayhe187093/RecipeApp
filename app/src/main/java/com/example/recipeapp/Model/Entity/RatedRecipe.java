@@ -25,4 +25,5 @@ public class RatedRecipe implements Serializable {
             entityColumn = "recipeID"
     )
     public List<Review> listReview;
+
 }

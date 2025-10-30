@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recipe App</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_favorite">Favorite recipes</string>
+    <string name="nav_my_kitchen">My Kitchen</string>
+    <string name="nav_language">Language</string>
+    <string name="nav_logout">Logout</string>
+    <string name="title_home">Home</string>
+</resources>

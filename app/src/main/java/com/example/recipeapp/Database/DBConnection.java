@@ -11,11 +11,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.recipeapp.Model.DAO.AccountDAO;
 import com.example.recipeapp.Model.DAO.CategoryDAO;
+import com.example.recipeapp.Model.DAO.FavoriteRecipeDAO;
 import com.example.recipeapp.Model.DAO.RecipeDAO;
 import com.example.recipeapp.Model.DAO.ReviewDAO;
 import com.example.recipeapp.Model.DAO.UserDAO;
 import com.example.recipeapp.Model.Entity.Account;
 import com.example.recipeapp.Model.Entity.Category;
+import com.example.recipeapp.Model.Entity.FavoriteRecipe;
 import com.example.recipeapp.Model.Entity.Recipe;
 import com.example.recipeapp.Model.Entity.Review;
 import com.example.recipeapp.Model.Entity.User;
@@ -23,13 +25,14 @@ import com.example.recipeapp.Model.Entity.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Account.class, Category.class, User.class, Recipe.class, Review.class},version = 4,exportSchema = true)
+@Database(entities = {Account.class, Category.class, User.class, Recipe.class, Review.class, FavoriteRecipe.class},version = 5,exportSchema = true)
 public abstract class DBConnection extends RoomDatabase {
     public abstract AccountDAO createAccountDao();
     public abstract CategoryDAO createCategoryDao();
     public abstract RecipeDAO createRecipeDao();
     public abstract ReviewDAO createReviewDao();
     public abstract UserDAO createUserDao();
+    public abstract FavoriteRecipeDAO createFavoriteRecipeDAO();
     private static volatile DBConnection INSTANCE;
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
 
@@ -62,6 +65,22 @@ public abstract class DBConnection extends RoomDatabase {
         }
     };
 
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS FavoriteRecipe (" +
+                            "favoriteRecipeID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                            "recipeID INTEGER NOT NULL, " +
+                            "userID INTEGER NOT NULL, " +
+                            "favorite INTEGER NOT NULL, " +
+                            "FOREIGN KEY(recipeID) REFERENCES Recipe(recipeID) ON DELETE CASCADE, " +
+                            "FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE" +
+                            ")"
+            );
+        }
+    };
+
     public static DBConnection getINSTANCE(Context context){
         if(INSTANCE == null){
             synchronized (DBConnection.class){
@@ -70,12 +89,11 @@ public abstract class DBConnection extends RoomDatabase {
                                     context.getApplicationContext(),
                                     DBConnection.class,
                                     "recipe_database")
-                            .addMigrations(MIGRATION_3_4)
+                            .addMigrations(MIGRATION_3_4,MIGRATION_4_5)
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
-
 }

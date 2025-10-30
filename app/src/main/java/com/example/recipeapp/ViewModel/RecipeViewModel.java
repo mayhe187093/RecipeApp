@@ -57,4 +57,7 @@ public class RecipeViewModel extends AndroidViewModel {
     public LiveData<List<RatedRecipe>> getRatedRecipeByUserID(int userID){
         return recipeRepository.getRatedRecipeByUserID(userID);
     }
+    public LiveData<List<RatedRecipe>> getListFavoriteRecipeByUserID(int userID,boolean like){
+        return recipeRepository.getListFavoriteRecipeByUserID(userID,like);
+    }
 }

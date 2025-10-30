@@ -41,6 +41,7 @@ public interface RecipeDAO {
     @Transaction
     @Query("select * from Recipe where recipeID = :recipeID")
     LiveData<RatedRecipe> getTopRecipeDetailByID(int recipeID);
+
     @Transaction
     @Query("select * from Recipe")
     LiveData<List<RatedRecipe>> getAllTopRecipeDetail();
@@ -48,4 +49,13 @@ public interface RecipeDAO {
     @Transaction
     @Query("select * from Recipe where userID = :userID ")
     LiveData<List<RatedRecipe>> getRatedRecipeByUserID(int userID);
+
+    @Transaction
+    @Query("select \n" +
+            "    r.recipeID,r.userID,r.recipeName,r.categoryID,r.ingredient,r.description,r.imgPath\n" +
+            " from \n" +
+            "     Recipe r inner join FavoriteRecipe fr on r.recipeID == fr.recipeID \n" +
+            " where\n" +
+            "     fr.userID = :userID and fr.favorite = :like")
+    LiveData<List<RatedRecipe>> getListFavoriteRecipeByUserID(int userID,boolean like);
 }

@@ -89,6 +89,11 @@ public class AddNewRecipeFragment extends Fragment {
             String description = binding.edtDescription.getText().toString().trim();
             String categoryName = autoCompleteTextView.getText().toString();
 
+            if(nameRecipe.isEmpty() || ingredient.isEmpty() || description.isEmpty() || categoryName.isEmpty()||imgPath==null){
+                Toast.makeText(requireContext(),"Vui lòng nhập đủ thông tin",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             userViewModel.getUserByAccountID(account.getAccountID()).observe(getViewLifecycleOwner(), user -> {
                 Category category = new Category();
                 for (int i = 0; i < adapter.getCount(); i++) {

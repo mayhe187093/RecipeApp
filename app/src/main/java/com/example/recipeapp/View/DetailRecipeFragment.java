@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,14 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.recipeapp.Model.Entity.FavoriteRecipe;
 import com.example.recipeapp.Model.Entity.RatedRecipe;
 import com.example.recipeapp.Model.Entity.Recipe;
 import com.example.recipeapp.Model.Entity.Review;
 import com.example.recipeapp.Model.Entity.ReviewWithRecipeWithUser;
 import com.example.recipeapp.Model.Entity.User;
 import com.example.recipeapp.R;
+import com.example.recipeapp.ViewModel.FavoriteRecipeViewModel;
 import com.example.recipeapp.ViewModel.RecipeViewModel;
 import com.example.recipeapp.ViewModel.ReviewViewModel;
 import com.example.recipeapp.ViewModel.UserViewModel;
@@ -42,33 +45,43 @@ public class DetailRecipeFragment extends Fragment {
     private UserViewModel userViewModel;
     private RatedRecipe ratedRecipe;
     private LayoutDialogWriteReviewBinding layoutDialogWriteReviewBinding;
+    private List<FavoriteRecipe> listFavoriteRecipe;
+    private FavoriteRecipeViewModel favoriteRecipeViewModel;
+
     private static void onChanged(List<RatedRecipe> ratedRecipes) {
 
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentDetailRecipeBinding.inflate(inflater,container,false);
+        binding = FragmentDetailRecipeBinding.inflate(inflater, container, false);
         recipeViewModel = new ViewModelProvider(requireActivity()).get(RecipeViewModel.class);
         reviewViewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        favoriteRecipeViewModel = new ViewModelProvider(requireActivity()).get(FavoriteRecipeViewModel.class);
 
-        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(),u -> {
+        userViewModel.getCurrentUser().observe(getViewLifecycleOwner(), u -> {
             user = u;
-            if(ratedRecipe!=null && user!=null){
-                if(ratedRecipe.user.getUserID() == user.getUserID()){
+            if (u != null && ratedRecipe != null) {
+                if (ratedRecipe.user.getUserID() == u.getUserID()) {
                     binding.writeReview.setVisibility(View.GONE);
-                }else{
+                } else {
                     binding.writeReview.setVisibility(View.VISIBLE);
                 }
+
+                favoriteRecipeViewModel.getListFavoriteRecipeByUserID(u.getUserID())
+                        .observe(getViewLifecycleOwner(), list -> {
+                            listFavoriteRecipe = list;
+                            updateFavoriteButtonState();
+                        });
             }
         });
 
-        if(getArguments() != null){
+        if (getArguments() != null) {
             ratedRecipe = (RatedRecipe) getArguments().get("recipeDetail");
         }
 
-        if(ratedRecipe != null){
+        if (ratedRecipe != null) {
             Recipe recipe = ratedRecipe.recipe;
             User authorRecipe = ratedRecipe.user;
 
@@ -85,14 +98,14 @@ public class DetailRecipeFragment extends Fragment {
 
             binding.nameAuthorRecipe.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("authorRecipe",authorRecipe);
+                bundle.putSerializable("authorRecipe", authorRecipe);
                 PersonAccountFragment fragment = new PersonAccountFragment();
                 fragment.setArguments(bundle);
                 requireActivity().getSupportFragmentManager().
-                                  beginTransaction().
-                                  replace(R.id.homecontent,fragment).
-                                  addToBackStack(null).
-                                  commit();
+                        beginTransaction().
+                        replace(R.id.homecontent, fragment).
+                        addToBackStack(null).
+                        commit();
             });
 
             binding.writeReview.setOnClickListener(v -> {
@@ -105,11 +118,11 @@ public class DetailRecipeFragment extends Fragment {
                 writeReview.setView(layoutDialogWriteReviewBinding.getRoot());
                 writeReview.setTitle("Viết Đánh Giá");
 
-                writeReview.setPositiveButton("Gửi",(dialog, which) -> {
+                writeReview.setPositiveButton("Gửi", (dialog, which) -> {
                     int rating = (int) layoutDialogWriteReviewBinding.ratingBar.getRating();
                     String comment = layoutDialogWriteReviewBinding.edtComment.getText().toString().trim();
-                    if(rating == 0 || comment.isEmpty()){
-                        Toast.makeText(requireContext(),"Vui Lòng Nhập Đầy Đủ Thông Tin",Toast.LENGTH_SHORT).show();
+                    if (rating == 0 || comment.isEmpty()) {
+                        Toast.makeText(requireContext(), "Vui Lòng Nhập Đầy Đủ Thông Tin", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     reviewViewModel.insertReview(new Review(rating, comment, user.getUserID(), recipe.getRecipeID()));
@@ -129,8 +142,49 @@ public class DetailRecipeFragment extends Fragment {
                 listReview.addAll(review);
                 adapter.notifyDataSetChanged();
             });
+
+            binding.btnFavorite.setOnClickListener(v -> {
+                if (user == null) {
+                    return;
+                }
+                boolean notExist = true;
+                for (FavoriteRecipe item : listFavoriteRecipe) {
+                    if (item.getRecipeID() == ratedRecipe.recipe.getRecipeID() && item.getUserID() == user.getUserID()) {
+                        notExist = false;
+                        item.setFavorite(!item.isFavorite());
+                        favoriteRecipeViewModel.updateStatusFavorite(item);
+                        break;
+                    }
+                }
+                if(notExist){
+                    binding.btnFavorite.setImageResource(R.drawable.after_favourite);
+                    FavoriteRecipe newFavoriteRecipe = new FavoriteRecipe(ratedRecipe.recipe.getRecipeID(), user.getUserID(), true);
+                    favoriteRecipeViewModel.insertFavoriteRecipe(newFavoriteRecipe);
+                    return;
+                }
+                updateFavoriteButtonState();
+            });
         }
 
         return binding.getRoot();
     }
+
+    private void updateFavoriteButtonState() {
+        if (listFavoriteRecipe == null || ratedRecipe == null) return;
+        boolean isFavorite = false;
+        for (FavoriteRecipe item : listFavoriteRecipe) {
+            if (item.getRecipeID() == ratedRecipe.recipe.getRecipeID()) {
+                if (item.isFavorite()) {
+                    isFavorite = true;
+                    break;
+                }
+            }
+        }
+        if (isFavorite) {
+            binding.btnFavorite.setImageResource(R.drawable.after_favourite);
+        } else {
+            binding.btnFavorite.setImageResource(R.drawable.before_favourite);
+        }
+    }
+
 }

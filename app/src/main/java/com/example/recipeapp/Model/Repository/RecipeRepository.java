@@ -55,4 +55,7 @@ public class RecipeRepository {
     public LiveData<List<RatedRecipe>> getRatedRecipeByUserID(int userID){
         return recipeDAO.getRatedRecipeByUserID(userID);
     }
+    public LiveData<List<RatedRecipe>> getListFavoriteRecipeByUserID(int userID,boolean like){
+        return recipeDAO.getListFavoriteRecipeByUserID(userID,like);
+    }
 }

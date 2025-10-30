@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_account"
+        android:icon="@drawable/person_account"
+        android:title="@string/nav_profile" />
+    <item
+        android:id="@+id/menu_favorites"
+        android:icon="@drawable/favorite_food"
+        android:title="@string/nav_favorite" />
+    <item
+        android:id="@+id/menu_cooked_recipe"
+        android:icon="@drawable/cooked_recipe"
+        android:title="@string/nav_my_kitchen" />
+    <item
+        android:id="@+id/menu_language"
+        android:icon="@drawable/language"
+        android:title="@string/nav_language" />
+    <group
+        android:id="@+id/group_language"
+        android:visible="false">
+        <item
+            android:id="@+id/lang_vi"
+            android:title="Tiếng Việt" />
+        <item
+            android:id="@+id/lang_en"
+            android:title="English" />
+    </group>
+
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/logout"
+        android:title="@string/nav_logout" />
+</menu>
