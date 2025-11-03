@@ -72,6 +72,7 @@
                 }
                 @Override
                 public void onDrawerOpened(@NonNull View drawerView) {
+
                 }
                 @Override
                 public void onDrawerClosed(@NonNull View drawerView) {
@@ -90,6 +91,9 @@
                 if(menuItem.getItemId() == R.id.menu_account){
                     loadFragment(new PersonAccountFragment());
                 }
+                if(menuItem.getItemId() == R.id.menu_favorites){
+                    loadFragment(new FavoriteRecipeFragment());
+                }
                 if (menuItem.getItemId() == R.id.menu_language) {
                     isLanguageExpanded = !isLanguageExpanded;
                     binding.leftMenu.post(() -> {
@@ -104,6 +108,7 @@
                     }
                     return false;
                 }
+
                 binding.drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             });

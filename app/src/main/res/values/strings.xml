@@ -6,4 +6,6 @@
     <string name="nav_language">Ngôn ngữ</string>
     <string name="nav_logout">Đăng xuất</string>
     <string name="title_home">Trang chủ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

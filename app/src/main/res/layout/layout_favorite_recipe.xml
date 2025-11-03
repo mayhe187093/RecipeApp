@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/card_bg"
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameFavoriteRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Cánh gà rang muối"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nameAuthorFavoriteRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="UserName"
+            android:textColor="#B4A44A"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgFavoriteRecipe"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_gravity="end"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/recipelogo" />
+
+</LinearLayout>

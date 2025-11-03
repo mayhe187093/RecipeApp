@@ -140,6 +140,7 @@ public class TopRecipeFragment extends Fragment {
     }
 
     public void loadFragment(Fragment fragment) {
+        // sử dụng khi fragment này muốn chuyển fragment khác (bản chuẩn)
         requireActivity().
                 getSupportFragmentManager().
                 beginTransaction().

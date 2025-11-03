@@ -43,6 +43,7 @@ public class AdminPage extends AppCompatActivity {
 
 
     public void loadFragment(Fragment fragment){
+        // sử dụng tại activity
         getSupportFragmentManager().beginTransaction().replace(R.id.admincontent,fragment).commit();
     }
 
